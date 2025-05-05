@@ -2,7 +2,7 @@ class Settings:
     def __init__(self):
         self.model = "RandomForestClassifier"  # Model name
         self.model_type = "Classification"  # Model type
-        self.proyect_name = "Calssification of URL"
+        self.proyect_name = "Classification of URL"
         self.version = "0.0.1"
         self.description = "Categorization of URLs using machine learning for phishing detection"
         self.api_prefix = "/api" # API prefix
