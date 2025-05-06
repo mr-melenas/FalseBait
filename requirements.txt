@@ -11,3 +11,4 @@ scipy
 xgboost
 jupyter # To run the jupyter
 notebook # To run the jupyter
+gradio

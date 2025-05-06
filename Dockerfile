@@ -5,22 +5,22 @@ FROM python:3.11
 # Automatically check for folders
 WORKDIR /app 
 
-COPY . /app/
-
 # Copy and install the requirements
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 
-# # Copy the app and model folders to the container THIS WILL CHANGE BECAUSE THE DOCKER IS BEING DONE BEFORE THE APP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# COPY ./app ./app
-# COPY ./model ./model
+# # Copy the host and app folders to the container 
+COPY . .
 
-# Expone dos puertos:
+
+# Expone los puertos:
 # - 8000 for FastAPI
 # - 8888 forJupyter notebook 
-EXPOSE 8000
+# - 7860 # Gradio
+EXPOSE 8000 
 EXPOSE 8888
+EXPOSE 7860 
 
 # To start fastapi
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
