@@ -1,5 +1,6 @@
 # To change for a new python version if needed
 # I am not using a "slim" image because it might cause problems with some of the libraries needed (xgboost definitely, and maybe others)
+# The warning I do have in this line is because it's not especified the exact python version like 3.11.9 or such
 FROM python:3.11 
 
 # Automatically check for folders
