@@ -4,7 +4,7 @@ from core.config import settings
 
 def classify_url(url):
     try:
-        response = requests.post("http://127.0.0.1:8000/api/v1/predict", json={"url": url})
+        response = requests.post(f"http://127.0.0.1:8000" + settings.api_prefix + settings.api_version + "/predict", json={"url": url})
         return response.json().get("classification", "❌ Error: Invalid output from server")
     except Exception as e:
         return f"❌ There was an error connecting to server: {e}"
