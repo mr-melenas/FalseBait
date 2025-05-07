@@ -5,12 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: phishing-api
+    container_name: falsebait
     ports:
       - "8000:8000"   # for FastAPI
       - "8888:8888"   # for jupyter
       - "7860:7860"   # for gradio
     volumes:
-      - ./app:/app/app  # This needs to be changed because this Docker is being done before the code and I do not know the actual names of the folders !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      - ./model:/app/model
+      - .:/falsebait
     restart: unless-stopped
