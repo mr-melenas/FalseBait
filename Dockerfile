@@ -4,6 +4,10 @@
 # Version must be 3.13 otherwise not all packages needed can be installed due to older versions cannot support it
 FROM python:3.13
 
+
+# In order to avoid issues with other operating systems
+RUN mkdir -p /tmp/cache/fontconfig && chmod 777 /tmp/cache/fontconfig
+
 # Automatically check for folders
 WORKDIR /falsebait
 
