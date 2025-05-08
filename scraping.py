@@ -2,12 +2,25 @@ import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 import string
-import re
+import re, os, csv, random
 import socket
 import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from core.config import settings
+
+# Variables globales
+modelo_A = None
+modelo_B = None
+# import models A and B
+def load_models():
+    global modelo_A, modelo_B
+    with open(settings.model_path_A, "rb") as f:
+        modelo_A = joblib.load(f)
+    with open(settings.model_path_B, "rb") as f:
+        modelo_B = joblib.load(f)
+
+load_models()
 # Init this socket to avoid DNS resolution errors
 def es_url_que_responde(url, timeout=5):  
     try:
@@ -213,11 +226,21 @@ def extract_features_from_url(url: str) -> dict:
             # 'label' no se incluye ya que es objetivo
         }
         input_df = pd.DataFrame([features])
-        model = joblib.load(settings.model_path)
+        model = joblib.load(settings.model_path_A)
+        rnd = random.random()
+        version = "A" if rnd < 0.5 else "B"
+        model = modelo_A if version == "A" else modelo_B
         prediction = model.predict(input_df)[0]
+        log_prediction(features, prediction)
         print(f"Predicción: {prediction}")
         return int(prediction)
 
     except Exception as e:
         print(f"Error al procesar la URL: {e}")
         return {}
+
+# Función para registrar la predicción
+def log_prediction(features, prediction):
+    print("Guardando registro de la predicción...")
+    print(features, prediction)
+
