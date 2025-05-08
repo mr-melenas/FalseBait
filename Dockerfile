@@ -7,8 +7,11 @@ FROM python:3.13
 # Automatically check for folders
 WORKDIR /falsebait
 
-# # Copy the host and app folders to the container 
+# # Copy the host and app folders and files into the container 
 COPY . .
+
+# Install python
+RUN python -m pip install --upgrade pip
 
 # Copy and install the requirements
 RUN pip install --no-cache-dir -r requirements.txt
@@ -22,5 +25,7 @@ EXPOSE 8000
 EXPOSE 8888
 EXPOSE 7860 
 
-# To start fastapi
-CMD ["./start.sh"]
+
+# # Healthcheck to ensure the server is running properly, it checks the endpoints 3 times every 30 seconds and if it is ok then is healthy and otherwise not
+# HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+#   CMD curl --fail http://0.0.0.0:8000/docs || exit 1
