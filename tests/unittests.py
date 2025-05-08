@@ -9,6 +9,9 @@ from scraping import es_url_que_responde
 from main import app
 
 class UnitTestExample(unittest.TestCase):
+    def setUp(self):
+        self.client = TestClient(app)
+
     def test_legitimate_url(self):
         # comporobamos que al pasarle una url valida nos devuleva True porque es legitima
         url = "https://www.google.com"
@@ -33,18 +36,14 @@ class UnitTestExample(unittest.TestCase):
         resultado = es_url_que_responde(url)
         self.assertEqual(resultado, False)
 
-
-# comprobar que el servidor de FastApi está corriendo
-class TestFastAPIServer(unittest.TestCase):
-    def setUp(self):
-        self.client = TestClient(app)
-
-    def test_predict_legitimate_url(self):
+    def test_FastApi_is_working(self):
+        # comprobar que el servidor de FastApi está corriendo
         response = self.client.post(settings.api_prefix + settings.api_version + "/predict", json={"url": "https://www.google.com"})
         self.assertEqual(response.status_code, 200)
         data = response.json()
         self.assertIn("classification", data)
         self.assertEqual(data["url"], "https://www.google.com")
+    
 
 if __name__ == "__main__":
     unittest.main()
