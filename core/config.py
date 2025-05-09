@@ -11,6 +11,7 @@ class Settings:
         self.model_path_B = "data/model_clf_B.pkl" # Path to the model file B
         self.test_data_logs = "csv/test_data_logs.csv" # Path to the test data logs
         self.combined_data = "csv/combine_model_sql.csv" # Path to the combined data
+        self.history_models = "csv/historico_modelos.csv" # Path to the history of models
         self.model_path = "data/model_clf.pkl" # Path to the model file
         self.model_map_tld = "data/tld_mapping.pkl" # Mapping for TLDs
         self.model_features = [

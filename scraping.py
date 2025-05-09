@@ -251,6 +251,7 @@ def extract_features_from_url(url: str) -> dict:
         model = joblib.load(settings.model_path_A)
         rnd = random.random()
         version = "A" if rnd < 0.5 else "B"
+        print(f"Version: {version}")
         model = modelo_A if version == "A" else modelo_B
         prediction = model.predict(input_df)[0]
         # Guardar en la base de datos
