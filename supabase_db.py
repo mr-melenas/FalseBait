@@ -10,10 +10,18 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+def save_fill_complete(data_dict):
+    try:
+        response = supabase.table("phishing_inputs").insert(data_dict).execute() #phishing_inputs
+        print("Fila guardada correctamente en Supabase.")
+        return response
+    except Exception as e:
+        print("Error al guardar en Supabase:", e)
+        return None
 
 def guardar_fila_completa(data_dict):
     try:
-        response = supabase.table("phishing_data").insert(data_dict).execute()
+        response = supabase.table("phishing_inputs").insert(data_dict).execute()
         print("Fila guardada correctamente en Supabase.")
         return response
     except Exception as e:
