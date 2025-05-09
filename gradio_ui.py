@@ -1,10 +1,15 @@
 import gradio as gr
 import requests
 from core.config import settings
+import os
+
+# Obtén la URL de FastAPI desde una variable de entorno, con fallback a 'http://fastapi_app:8000'
+FASTAPI_BASE_URL = os.getenv("FASTAPI_URL", "http://fastapi_app:8000")
 
 def classify_url(url):
     try:
-        response = requests.post(f"http://fastapi_app:8000" + settings.api_prefix + settings.api_version + "/predict", json={"url": url}, timeout=5)
+        endpoint = f"{FASTAPI_BASE_URL}{settings.api_prefix}{settings.api_version}/predict"
+        response = requests.post(endpoint, json={"url": url}, timeout=50)
 
         return response.json().get("classification", "❌ Error: Invalid output from server")
     except Exception as e:

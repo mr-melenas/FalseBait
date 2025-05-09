@@ -44,17 +44,19 @@ def save_concat():
         df1 = pd.read_csv("https://raw.githubusercontent.com/juancmacias/datas/main/DataSet/PhiUSIIL_Phishing_URL_Dataset.csv")
         df2 = pd.read_csv(settings.test_data_logs)
         df_total = pd.concat([df1, df2], ignore_index=True)
-        df_total.to_csv("csv/combinado_modelado.csv", index=False)
-        print("Archivos combinados y guardados como combinado.csv")
+        df_total.to_csv(settings.combined_data, index=False)
+        print("Archivos combinados y guardados como:", settings.combined_data)
+        model_b()
     except Exception as e:
         print("Error al combinar los archivos:", e)
+
 
 # Aquí puedes agregar la lógica de tu modelo
 def model_b():
     try:
-        df = pd.read_csv("csv/combinado_modelado.csv")
+        df = pd.read_csv(settings.combined_data)
         # Limpiar columnas
-        columnas_a_eliminar = ['FILENAME', 'URL', 'Domain', 'Title']
+        columnas_a_eliminar = ['created_at','FILENAME', 'URL', 'Domain', 'Title']
 
         df.drop(columns=columnas_a_eliminar, inplace=True, errors='ignore')
         # guardar mapeo
