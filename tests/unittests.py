@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 from scraping import es_url_que_responde
 
 from main import app
+import joblib
 
 class UnitTestExample(unittest.TestCase):
     def setUp(self):
@@ -44,6 +45,16 @@ class UnitTestExample(unittest.TestCase):
         self.assertIn("classification", data)
         self.assertEqual(data["url"], "https://www.google.com")
     
+    def test_model_is_loading(self):
+        # comprobamos que el modelo se carga correctamente
+        model_path = settings.model_path_A
+        self.assertTrue(os.path.exists(model_path), "El modelo no se encuentra en la ruta especificada: {model_path}")
+
+        try:
+            model = joblib.load(model_path)
+            self.assertIsNotNone(model, "El modelo no se ha cargado correctamente.")
+        except Exception as e:
+            self.fail(f"Error al cargar el modelo: {e}")
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,6 +7,9 @@ class Settings:
         self.description = "Categorization of URLs using machine learning for phishing detection"
         self.api_prefix = "/api" # API prefix
         self.api_version = "/v1" # API version
+        self.model_path_A = "data/model_clf_A.pkl" # Path to the model file A
+        self.model_path_B = "data/model_clf_B.pkl" # Path to the model file B
+        self.test_data_logs = "csv/test_data_logs.csv" # Path to the test data logs
         self.model_path = "data/model_clf.pkl" # Path to the model file
         self.model_map_tld = "data/tld_mapping.pkl" # Mapping for TLDs
         self.model_features = [

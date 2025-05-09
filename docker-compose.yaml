@@ -1,4 +1,5 @@
 services:
+# ------------------------- FastAPI-----------------------------------------------
   fastapi:
     build:
       context: .
@@ -6,15 +7,18 @@ services:
     container_name: fastapi_app
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
-      - "8000:8000"
+      - "8000:8000" # Port exposed
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://0.0.0.0:8000/docs"]
       interval: 30s
       timeout: 10s
       retries: 3
-    depends_on:
-      - jupyter
-
+# ------------------------- Gradio UI---------------------------------------------
   gradio:
     build:
       context: .
@@ -22,7 +26,7 @@ services:
     container_name: gradio_ui
     command: python gradio_ui.py
     ports:
-      - "7860:7860"
+      - "7860:7860" # Port exposed
     healthcheck:
       test: ["CMD", "curl", "-f", "http://0.0.0.0:7860"]
       interval: 30s
@@ -30,17 +34,57 @@ services:
       retries: 3
     depends_on:
       - fastapi
-
-  jupyter:
+# # ------------------------- Jupyter Notebook--------------------------------------
+#   jupyter:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: jupyter_dev
+#     command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+#     ports:
+#       - "8888:8888" # Port exposed
+#     healthcheck:
+#       test: ["CMD", "curl", "-f", "http://0.0.0.0:8888"]
+#       interval: 30s
+#       timeout: 10s
+#       retries: 3
+# ------------------------- Tests-------------------------------------------------
+  tests:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: jupyter_dev
-    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+    container_name: test_runner
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    command: sh -c "python tests/unittests.py ; pytest tests/integration_tests.py"
+    depends_on:
+      - fastapi
+# ----------------- Supabase----------------------------------------------
+  supabase:
+    image: postgres:15
+    container_name: supabase_db
     ports:
-      - "8888:8888"
+      - "54321:5432" # Port exposed
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+
+    volumes:
+      - supabase_data:/var/lib/postgresql/data      # This is postgres default data directory
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://0.0.0.0:8888"]
+      test: ["CMD", "pg_isready", "-U", "postgres"] # Postgres integrated test to check if supabase is receiving and connecting to requests appropriately
       interval: 30s
       timeout: 10s
       retries: 3
+
+volumes:
+  supabase_data:
