@@ -9,7 +9,7 @@ FASTAPI_BASE_URL = os.getenv("FASTAPI_URL", "http://fastapi_app:8000")
 def classify_url(url):
     try:
         endpoint = f"{FASTAPI_BASE_URL}{settings.api_prefix}{settings.api_version}/predict"
-        response = requests.post(endpoint, json={"url": url}, timeout=5)
+        response = requests.post(endpoint, json={"url": url}, timeout=50)
 
         return response.json().get("classification", "❌ Error: Invalid output from server")
     except Exception as e:
