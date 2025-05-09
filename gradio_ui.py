@@ -4,7 +4,7 @@ from core.config import settings
 
 def classify_url(url):
     try:
-        response = requests.post(f"http://127.0.0.1:8000" + settings.api_prefix + settings.api_version + "/predict", json={"url": url}, timeout=5)
+        response = requests.post(f"http://fastapi_app:8000" + settings.api_prefix + settings.api_version + "/predict", json={"url": url}, timeout=5)
 
         return response.json().get("classification", "❌ Error: Invalid output from server")
     except Exception as e:
@@ -48,7 +48,7 @@ def gradio_interface():
             """
         )
 
-    demo.launch(favicon_path="images/favicon.png",server_name="0.0.0.0", server_port=7861)
+    demo.launch(favicon_path="images/favicon.png",server_name="0.0.0.0", server_port=7860)
 
 if __name__ == "__main__":
     gradio_interface()

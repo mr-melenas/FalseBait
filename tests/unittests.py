@@ -47,7 +47,7 @@ class UnitTestExample(unittest.TestCase):
     
     def test_model_is_loading(self):
         # comprobamos que el modelo se carga correctamente
-        model_path = settings.model_path
+        model_path = settings.model_path_A
         self.assertTrue(os.path.exists(model_path), "El modelo no se encuentra en la ruta especificada: {model_path}")
 
         try:
