@@ -2,9 +2,15 @@
 # I am not using a "slim" image because it might cause problems with some of the libraries needed (xgboost definitely, and maybe others)
 # The warning I do have in this line is because it's not especified the exact python version like 3.11.9 or such
 # Version must be 3.13 otherwise not all packages needed can be installed due to older versions cannot support it
-FROM python:3.13
+ARG PYTHON_VERSION=3.13
+FROM python:${PYTHON_VERSION}-slim AS builder
 
+# Establecer el directorio de trabajo
+# Prevents Python from writing pyc files and keeps Python from buffering stdout and stderr
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
+USER root
 # In order to avoid issues with other operating systems
 RUN mkdir -p /tmp/cache/fontconfig && chmod 777 /tmp/cache/fontconfig
 
