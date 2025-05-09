@@ -8,6 +8,8 @@ import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from core.config import settings
+from supabase_db import save_fill_complete
+
 # Init this socket to avoid DNS resolution errors
 def es_url_que_responde(url, timeout=5):  
     try:
@@ -216,8 +218,73 @@ def extract_features_from_url(url: str) -> dict:
         model = joblib.load(settings.model_path)
         prediction = model.predict(input_df)[0]
         print(f"Predicción: {prediction}")
-        return int(prediction)
 
+
+        try:
+            features_all = {
+            "FILENAME": filename,
+            "URL": url,
+            "URLLength": url_length,
+            "Domain": domain,
+            "DomainLength": domain_length,
+            "IsDomainIP": domain_ip,
+            "TLD": mapping_tld, #es un numero necesario mapeado
+            "URLSimilarityIndex": 100,  # Asumido 100% consigo mismo
+            "CharContinuationRate": char_continuation_rate(url), 
+            "TLDLegitimateProb": tld_legitimate_prob(tld),  
+            "URLCharProb": url_char_prob(url), 
+            "TLDLength": tld_len,
+            "NoOfSubDomain": domain.count('.') - 1,
+            "HasObfuscation": 1 if matches else 0,
+            "NoOfObfuscatedChar": len(matches),
+            "ObfuscationRatio": round(len(matches) / url_length, 3) if url_length > 0 else 0.0,
+            "NoOfLettersInURL": no_of_letters,
+            "LetterRatioInURL": round(letter_ratio, 3),
+            "NoOfDegitsInURL": no_of_digits,
+            "DegitRatioInURL": round(digit_ratio, 3),
+            "NoOfEqualsInURL": url.count('='),
+            "NoOfQMarkInURL": url.count('?'),
+            "NoOfAmpersandInURL": url.count('&'),
+            "NoOfOtherSpecialCharsInURL": len(other_special_chars),
+            "SpacialCharRatioInURL": round(spatial_char_ratio, 3),
+            "IsHTTPS": is_https,
+            "LineOfCode": num_lines,
+            "LargestLineLength": largest_line,
+            "HasTitle": has_title,
+            "Title": title,
+            "DomainTitleMatchScore": 1 if title and domain.lower() in title.lower() else 0,
+            "URLTitleMatchScore": URLTitleMatchScore,
+            "HasFavicon": has_favicon,
+            "Robots": has_robots,
+            "IsResponsive": 0,  # Requiere renderizado JS
+            "NoOfURLRedirect": count_url_redirects(url), 
+            "NoOfSelfRedirect": count_self_redirects(url),
+            "HasDescription": has_description,
+            "NoOfPopup": 0,  # Requiere JS/render
+            "NoOfiFrame": len(soup.find_all("iframe")),
+            "HasExternalFormSubmit": has_external_form,
+            "HasSocialNet": has_social,
+            "HasSubmitButton": has_submit,
+            "HasHiddenFields": has_hidden,
+            "HasPasswordField": has_password,
+            "Bank": bank,
+            "Pay": pay,
+            "Crypto": crypto,
+            "HasCopyrightInfo": 1 if "Â©" in html else 0,
+            "NoOfImage": num_img,
+            "NoOfCSS": num_css,
+            "NoOfJS": num_js,
+            "NoOfSelfRef": num_self_ref,
+            "NoOfEmptyRef": num_empty_ref,
+            "NoOfExternalRef": num_external_ref,
+            "label": int(prediction)
+        }
+            save_fill_complete(features_all)
+        except Exception as db_error:
+            print(f"Error al guardar en la base de datos: {db_error}")
+        
+        return int(prediction)
+    
     except Exception as e:
         print(f"Error al procesar la URL: {e}")
         return {}
