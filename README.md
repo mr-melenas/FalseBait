@@ -27,15 +27,10 @@ Accede a documentación del proyecto:
 ## Características Principales
 
 ✅ **Interfaz Dual**: Acceso tanto a través de interfaz web (Gradio) como API (FastAPI)
-
 ✅ **Clasificación basada en ML**: Utiliza dos modelos para redundancia y precisión
-
 ✅ **Extracción de Características**: Analiza estructura de URL, propiedades de dominio y contenido
-
 ✅ **Almacenamiento de Resultados**: Guarda resultados de clasificación en base de datos Supabase
-
 ✅ **Análisis Profundo**: Extrae más de 40 características de cada URL para una clasificación precisa
-
 ✅ **Despliegue Containerizado**: Fácil despliegue mediante Docker y Docker Compose
 
 ## Arquitectura del Sistema
@@ -58,24 +53,24 @@ FalseBait sigue una arquitectura de microservicios con clara separación entre U
 
 ## Tecnologías Utilizadas
 
-![Render](https://img.shields.io/badge/-Render-46B7C8?logo=render&logoColor=white) 
-![Gradio](https://img.shields.io/badge/-Gradio-FFB400?logo=python&logoColor=black)  
-![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white) 
-![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)   
-![Jupyter](https://img.shields.io/badge/-Jupyter-FF3C00?logo=jupyter&logoColor=white)  
-![Supabase](https://img.shields.io/badge/-Supabase-3ECF8E?logo=supabase&logoColor=white)  
+![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/-Jupyter-FF3C00?logo=jupyter&logoColor=white)
+![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white)
+![Render](https://img.shields.io/badge/-Render-46B7C8?logo=render&logoColor=white)
+![Gradio](https://img.shields.io/badge/-Gradio-FFB400?logo=python&logoColor=black)
+![Supabase](https://img.shields.io/badge/-Supabase-3ECF8E?logo=supabase&logoColor=white)
+
 
 ## Dependencias
 
-![Scikit-learn](https://img.shields.io/badge/-Scikit--learn-F7931E?logo=scikit-learn&logoColor=white)  
-![Logging](https://img.shields.io/badge/-Logging-4B8BBE?logo=python&logoColor=white)  
-![pytest](https://img.shields.io/badge/-pytest-0A9EDC?logo=pytest&logoColor=white)  
-![Uvicorn](https://img.shields.io/badge/-Uvicorn-7A2A8B?logo=uvicorn&logoColor=white)  
-![NumPy](https://img.shields.io/badge/-NumPy-013243?logo=numpy&logoColor=white)  
-![Pandas](https://img.shields.io/badge/-Pandas-150458?logo=pandas&logoColor=white)  
+![Pandas](https://img.shields.io/badge/-Pandas-150458?logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/-NumPy-013243?logo=numpy&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/-Scikit--learn-F7931E?logo=scikit-learn&logoColor=white)
+![Uvicorn](https://img.shields.io/badge/-Uvicorn-7A2A8B?logo=uvicorn&logoColor=white)
+![pytest](https://img.shields.io/badge/-pytest-0A9EDC?logo=pytest&logoColor=white)
 ![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-8B2A2A?logo=python&logoColor=white)
-
+![Logging](https://img.shields.io/badge/-Logging-4B8BBE?logo=python&logoColor=white)
 
 ## Instalación y Uso
 
@@ -156,13 +151,9 @@ El proceso de clasificación de URL sigue estos pasos:
 ## Posibles Mejoras
 
 ✅ Integrar datasets adicionales para obtener insights más profundos
-
 ✅ Desarrollar un pipeline automatizado para actualizaciones de datos
-
 ✅ Mejorar visualizaciones con dashboards interactivos
-
 ✅ Implementar modelos de machine learning para predicción de tendencias
-
 ✅ Añadir más características de análisis para mejorar la precisión
 
 ---
