@@ -54,6 +54,11 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: test_runner
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
     command: sh -c "python tests/unittests.py ; pytest tests/integration_tests.py"
     depends_on:
       - fastapi
