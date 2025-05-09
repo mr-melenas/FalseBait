@@ -12,11 +12,14 @@
 - [Flujo de Clasificación de URLs](#flujo-de-clasificación-de-urls)
 - [Posibles Mejoras](#posibles-mejoras)
 
+---
 ## Acerca del Proyecto
-
+<div align="justify">
 FalseBait es una plataforma web que analiza y clasifica textos en función de su veracidad. El proyecto utiliza una arquitectura de microservicios con contenedores Docker, persistencia en Supabase, y despliegue en la nube mediante Render.
 
 Cuenta con una funcionalidad clave: reentrenamiento automático del modelo con nuevas URLs insertadas por los usuarios, lo que permite una mejora progresiva del sistema. Además, incluye logs de actividad para trazabilidad y depuración.
+
+</div>
 
 Accede a la app online:
 🔗 https://falsebaitgradio.onrender.com/
@@ -24,15 +27,22 @@ Accede a la app online:
 Accede a documentación del proyecto: 
 🔗 https://deepwiki.com/mr-melenas/FalseBait/1-overview
 
+---
 ## Características Principales
 
 ✅ **Interfaz Dual**: Acceso tanto a través de interfaz web (Gradio) como API (FastAPI)
+
 ✅ **Clasificación basada en ML**: Utiliza dos modelos para redundancia y precisión
+
 ✅ **Extracción de Características**: Analiza estructura de URL, propiedades de dominio y contenido
+
 ✅ **Almacenamiento de Resultados**: Guarda resultados de clasificación en base de datos Supabase
+
 ✅ **Análisis Profundo**: Extrae más de 40 características de cada URL para una clasificación precisa
+
 ✅ **Despliegue Containerizado**: Fácil despliegue mediante Docker y Docker Compose
 
+---
 ## Arquitectura del Sistema
 
 ```
@@ -50,7 +60,7 @@ FalseBait sigue una arquitectura de microservicios con clara separación entre U
 - **ML Models**: Dos modelos de clasificación que determinan si una URL es legítima o de phishing
 - **Supabase Database**: Almacena resultados de clasificación y características extraídas
 
-
+---
 ## Tecnologías Utilizadas
 
 ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
@@ -72,6 +82,7 @@ FalseBait sigue una arquitectura de microservicios con clara separación entre U
 ![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-8B2A2A?logo=python&logoColor=white)
 ![Logging](https://img.shields.io/badge/-Logging-4B8BBE?logo=python&logoColor=white)
 
+---
 ## Instalación y Uso
 
 ### 1️⃣ Clonar el Repositorio
@@ -136,6 +147,7 @@ Este endpoint acepta una URL y devuelve su clasificación como legítima, phishi
 }
 ```
 
+---
 ## Flujo de Clasificación de URLs
 
 El proceso de clasificación de URL sigue estos pasos:
@@ -148,12 +160,18 @@ El proceso de clasificación de URL sigue estos pasos:
 6. Los resultados de clasificación se almacenan en la base de datos Supabase
 7. El resultado ("Legítimo", "Phishing" o "Desconocido") se devuelve al usuario
 
+---
+
 ## Posibles Mejoras
 
 ✅ Integrar datasets adicionales para obtener insights más profundos
+
 ✅ Desarrollar un pipeline automatizado para actualizaciones de datos
+
 ✅ Mejorar visualizaciones con dashboards interactivos
+
 ✅ Implementar modelos de machine learning para predicción de tendencias
+
 ✅ Añadir más características de análisis para mejorar la precisión
 
 ---
