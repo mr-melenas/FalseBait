@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fastapi_app
-    command: uvicorn main:falsebait --host 0.0.0.0 --port 8000
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000" # Port exposed
     healthcheck:
@@ -49,7 +49,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: test_runner
-    command: python test_unittests.py
+    command: python -m unittest tests.unittests
     depends_on:
       - fastapi
 # ----------------- Supabase----------------------------------------------
