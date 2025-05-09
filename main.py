@@ -4,6 +4,8 @@ from pydantic import BaseModel
 import asyncio
 import scraping
 from core.config import settings
+import model_b as modelB
+modelB.load_data()
 
 class PredictRequest(BaseModel):
     url: str

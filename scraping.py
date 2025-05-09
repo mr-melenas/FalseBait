@@ -260,7 +260,8 @@ def extract_features_from_url(url: str) -> dict:
                 url,
                 filename,
                 title,
-                domain
+                domain,
+                tld
             )
         return int(prediction)
 
