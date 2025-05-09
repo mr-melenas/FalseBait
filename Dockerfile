@@ -10,7 +10,6 @@ FROM python:${PYTHON_VERSION}-slim AS builder
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-
 USER root
 # In order to avoid issues with other operating systems
 RUN mkdir -p /tmp/cache/fontconfig && chmod 777 /tmp/cache/fontconfig
