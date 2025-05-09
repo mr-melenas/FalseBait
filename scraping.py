@@ -12,6 +12,7 @@ from core.config import settings
 # Variables globales
 modelo_A = None
 modelo_B = None
+
 # import models A and B
 def load_models():
     global modelo_A, modelo_B
@@ -21,6 +22,7 @@ def load_models():
         modelo_B = joblib.load(f)
 
 load_models()
+
 # Init this socket to avoid DNS resolution errors
 def es_url_que_responde(url, timeout=5):  
     try:
@@ -33,7 +35,6 @@ def es_url_que_responde(url, timeout=5):
 
     except requests.RequestException:
         return False
-
 
 # buscar palabras clave en el texto
 def keyword_detect(text, keywords):
@@ -48,6 +49,7 @@ def count_url_redirects(url):
     except requests.RequestException:
         return -1  # O algún valor que indique error
     
+# Contar redirecciones a la misma URL
 def count_self_redirects(url):
     try:
         response = requests.get(url, allow_redirects=True, timeout=10)
@@ -59,12 +61,29 @@ def count_self_redirects(url):
         return len(redirects)
     except requests.RequestException:
         return 0  # En caso de error en la petición
+    
+# Comprobar si la página es responsiva
+def is_responsive_heuristic(url):
+    try:
+        response = requests.get(url, timeout=10)
+        soup = BeautifulSoup(response.text, 'html.parser')
 
+        # Buscar meta viewport
+        meta_viewport = soup.find("meta", attrs={"name": "viewport"})
+        if meta_viewport and "width=device-width" in str(meta_viewport):
+            return 1
+
+        # Buscar uso de media queries en CSS (muy básico)
+        styles = soup.find_all("style")
+        if any("@media" in style.text for style in styles):
+            return 1
+
+        return 0
+    except:
+        return 0
+
+# Scrapping de la página
 def extract_features_from_url(url: str) -> dict:
-    #bank_keywords = ["bank", "transfer", "iban", "swift", "account", "balance", "loan", "credit"]
-    #pay_keywords = ["payment", "checkout", "invoice", "paypal", "card", "stripe", "pay"]
-    #crypto_keywords = ["bitcoin", "crypto", "ethereum", "blockchain", "wallet", "btc"]
-    #social_domains = ["facebook.com", "twitter.com", "instagram.com", "linkedin.com"]
     try:
         # Descargar el HTML
         headers = {'User-Agent': 'Mozilla/5.0'}
@@ -148,8 +167,6 @@ def extract_features_from_url(url: str) -> dict:
             return round(same / len(u), 3)
         #TLDLegitimateProb
         def tld_legitimate_prob(tld):
-            #comunes = {'com', 'org', 'net', 'edu', 'gov'}
-            #sospechosos = {'xyz', 'top', 'gq', 'tk', 'ml'}
             if tld in settings.legitimate_tlds:
                 return 0.9
             elif tld in settings.suspect_tlds:
@@ -165,6 +182,8 @@ def extract_features_from_url(url: str) -> dict:
         # mapping of TLD to numeric values
         tld_mapping = joblib.load(settings.model_map_tld)
         mapping_tld = tld_mapping.get(tld, 0)  # Default to 0 if TLD not found
+        # Comprobar los posibles popups
+        possible_popups = len(soup.select("div[class*=popup], div[class*=modal], div[id*=popup]"))
 
         # Campos estadísticos / heurísticos estimados
         features = {
@@ -202,11 +221,11 @@ def extract_features_from_url(url: str) -> dict:
             "URLTitleMatchScore": URLTitleMatchScore,
             "HasFavicon": has_favicon,
             "Robots": has_robots,
-            "IsResponsive": 0,  # Requiere renderizado JS
+            "IsResponsive": is_responsive_heuristic(url),
             "NoOfURLRedirect": count_url_redirects(url), 
             "NoOfSelfRedirect": count_self_redirects(url),
             "HasDescription": has_description,
-            "NoOfPopup": 0,  # Requiere JS/render
+            "NoOfPopup": possible_popups,
             "NoOfiFrame": len(soup.find_all("iframe")),
             "HasExternalFormSubmit": has_external_form,
             "HasSocialNet": has_social,
@@ -225,6 +244,7 @@ def extract_features_from_url(url: str) -> dict:
             "NoOfExternalRef": num_external_ref
             # 'label' no se incluye ya que es objetivo
         }
+
         input_df = pd.DataFrame([features])
         model = joblib.load(settings.model_path_A)
         rnd = random.random()
@@ -232,7 +252,7 @@ def extract_features_from_url(url: str) -> dict:
         model = modelo_A if version == "A" else modelo_B
         prediction = model.predict(input_df)[0]
         log_prediction(features, prediction)
-        print(f"Predicción: {prediction}")
+        
         return int(prediction)
 
     except Exception as e:
