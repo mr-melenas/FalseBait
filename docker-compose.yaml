@@ -49,7 +49,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: test_runner
-    command: python -m unittest tests.unittests
+    command: sh -c "python tests/unittests.py ; pytest tests/integration_tests.py"
     depends_on:
       - fastapi
 # ----------------- Supabase----------------------------------------------
