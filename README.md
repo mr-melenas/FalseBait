@@ -176,7 +176,7 @@ El proceso de clasificación de URL sigue estos pasos:
 
 ---
 
-🧑‍💻 ## Colaboradores
+## 🧑‍💻 Colaboradores
 
 Este proyecto ha sido desarrollado por:
 
