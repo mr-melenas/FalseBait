@@ -150,15 +150,7 @@ Este endpoint acepta una URL y devuelve su clasificación como legítima, phishi
 ---
 ## Flujo de Clasificación de URLs
 
-El proceso de clasificación de URL sigue estos pasos:
-
-1. Un usuario envía una URL a través de la UI de Gradio o directamente a la API
-2. El backend FastAPI recibe la solicitud y la procesa
-3. El sistema verifica si la URL responde
-4. Si responde, se extraen características de la URL
-5. Se selecciona aleatoriamente un modelo ML (A o B) para clasificar la URL
-6. Los resultados de clasificación se almacenan en la base de datos Supabase
-7. El resultado ("Legítimo", "Phishing" o "Desconocido") se devuelve al usuario
+![Imagen del flujo de clasificación de la URL](<img/URL Classification Workflow.png>)
 
 ---
 
