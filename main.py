@@ -10,6 +10,7 @@ import nest_asyncio
 # Carga asincrona para evitar el error de bucle de eventos
 nest_asyncio.apply()
 
+
 asyncio.create_task(modelB.load_data())  # en un entorno async
 
 

@@ -22,7 +22,7 @@ load_dotenv()
 supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
 # Load data of SQL
-async def load_data(number_itera=50):
+async def load_data(number_itera=2):
     
     # Create CSV file
     if number_itera > 1:
@@ -42,8 +42,10 @@ async def load_data(number_itera=50):
                     {k: v for k, v in row.items() if k not in ("created_at")}
                     for row in response.data
                     ]
-                # Verificamos si hay datos y los guardamos en CSV
+                
                 df = pd.DataFrame(data_filtrada)
+                # quitar duplicados
+                df.drop_duplicates(subset=['URL'], inplace=True)
                 df.to_csv(settings.test_data_logs, index=False)
                 save_concat()
             except Exception as e:
@@ -67,11 +69,11 @@ def save_concat():
     except Exception as e:
         print("Error al combinar los archivos:", e)
 
-
 # Entrenamiento del modelo B, datos combinados
 def model_b():
     try:
         df = pd.read_csv(settings.combined_data)
+        
         # Limpiar columnas
         columnas_a_eliminar = ['FILENAME', 'URL', 'Domain', 'Title', 'id']
         df.drop(columns=columnas_a_eliminar, inplace=True, errors='ignore')

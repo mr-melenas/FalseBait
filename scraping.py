@@ -9,6 +9,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from core.config import settings
 from supabase_db import save_fill_complete
+from difflib import SequenceMatcher
 
 
 # Variables globales
@@ -196,7 +197,7 @@ def extract_features_from_url(url: str) -> dict:
             "DomainLength": domain_length,
             "IsDomainIP": domain_ip,
             "TLD": mapping_tld, #es un numero necesario mapeado
-            "URLSimilarityIndex": 100,  # Asumido 100% consigo mismo
+            "URLSimilarityIndex": round(SequenceMatcher(None, domain.lower(), title.lower()).ratio() * 100, 2),  
             "CharContinuationRate": char_continuation_rate(url), 
             "TLDLegitimateProb": tld_legitimate_prob(tld),  
             "URLCharProb": url_char_prob(url), 
