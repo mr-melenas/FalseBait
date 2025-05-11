@@ -150,7 +150,7 @@ Este endpoint acepta una URL y devuelve su clasificación como legítima, phishi
 ---
 ## Flujo de Clasificación de URLs
 
-![Imagen del flujo de clasificación de la URL](<img/URL Classification Workflow.png>)
+![Imagen del flujo de clasificación de la URL](<images/URL Classification Workflow.png>)
 
 ---
 
