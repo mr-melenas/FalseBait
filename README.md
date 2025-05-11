@@ -1,5 +1,7 @@
 # 🔍 FalseBait: Detección de Phishing con Machine Learning
 
+![Imagen del flujo de clasificación de la URL](<images/phishing.png>)
+
 ## 📌 Índice
 
 - [Acerca del Proyecto](#acerca-del-proyecto)
