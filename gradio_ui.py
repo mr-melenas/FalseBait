@@ -4,7 +4,7 @@ from core.config import settings
 import os
 
 # Obtén la URL de FastAPI desde una variable de entorno, con fallback a 'http://fastapi_app:8000'
-FASTAPI_BASE_URL = os.getenv("FASTAPI_URL", "http://127.0.0.1:8000")
+FASTAPI_BASE_URL = os.getenv("FASTAPI_URL", "http://fastapi_app:8000")
 
 def classify_url(url):
     try:
