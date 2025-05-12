@@ -53,14 +53,7 @@ POST /api/v1/predict → Web requests → Model prediction → extract_features_
 Usuario → Gradio UI (gradio_ui.py) → API Client → FastAPI Backend (main.py) → URL Predictor (scraping.py) → Web Scraper (scraping.py) → ML Models (model_clf_A.pkl, model_clf_B.pkl) → Supabase Database (supabase_db.py)
 ```
 
-FalseBait sigue una arquitectura de microservicios con clara separación entre UI, lógica de aplicación y almacenamiento de datos. El sistema consta de:
-
-- **Gradio UI**: Interfaz web para enviar URLs para clasificación
-- **FastAPI Backend**: Procesa solicitudes de clasificación de URL a través de una API REST
-- **URL Predictor**: Componente principal que maneja el análisis de URL
-- **Feature Extractor**: Extrae características relevantes de las URLs para análisis
-- **ML Models**: Dos modelos de clasificación que determinan si una URL es legítima o de phishing
-- **Supabase Database**: Almacena resultados de clasificación y características extraídas
+![Imagen del flujo de clasificación de la URL](<images/diagram phishing.png>)
 
 ---
 ## Tecnologías Utilizadas
