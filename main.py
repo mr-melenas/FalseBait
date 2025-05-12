@@ -20,7 +20,6 @@ async def lifespan(app: FastAPI):
     # Código que se ejecuta al iniciar la app
     asyncio.create_task(modelB.load_data())
     yield
-    # Código que se ejecuta al cerrar la app (si es necesario)
 
 
 app = FastAPI(
