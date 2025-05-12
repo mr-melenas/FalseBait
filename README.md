@@ -2,7 +2,7 @@
 
 ![Imagen Intro](<images/phishing.png>)
 
-## 📌 Índice
+##  Índice
 
 - [Acerca del Proyecto](#acerca-del-proyecto)
 - [Características Principales](#características-principales)
@@ -28,6 +28,9 @@ Accede a la app online:
 
 Accede a documentación del proyecto: 
 🔗 https://deepwiki.com/mr-melenas/FalseBait/1-overview
+
+Accede a la presentación del proyecto:
+🔗 https://gamma.app/docs/Sistema-de-Deteccion-de-Phishing-f2ludgict8ev676
 
 ---
 ![Ver video demo](images/render_gif.gif)
@@ -99,8 +102,7 @@ Esto iniciará tres servicios:
     https://falsebaitgradio.onrender.com/
 
 ### 3️⃣ Opción 3: Ejecutar en local con Docker
-Asegúrate de tener Docker instalado.
-1️⃣ Descargar las imágenes necesarias:
+Descargar las imágenes necesarias:
 ```
     docker pull yaelpc/falsebait-fastapi:v7  
     docker pull yaelpc/falsebait-gradio:v7  
@@ -114,6 +116,9 @@ Ejecutar los contenedores (ejemplo básico):
 Acceder a la app localmente:
 http://127.0.0.1:7860
 
+🆒 Para acceder al código de Redes Neuronales:
+
+[https://collab.com](https://colab.research.google.com/)
 ---
 ## API Endpoints
     https://falsebait-ake4.onrender.com/docs
@@ -158,7 +163,7 @@ Este endpoint acepta una URL y devuelve su clasificación como legítima, phishi
 
 ---
 
-## 🧑‍💻 Colaboradores
+## Colaboradores
 
 Este proyecto ha sido desarrollado por:
 
