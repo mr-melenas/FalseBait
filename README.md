@@ -19,7 +19,7 @@
 <div align="justify">
 FalseBait es una plataforma web que analiza y clasifica textos en función de su veracidad. El proyecto utiliza una arquitectura de microservicios con contenedores Docker, persistencia en Supabase, y despliegue en la nube mediante Render.
 
-Cuenta con una funcionalidad clave: reentrenamiento automático del modelo con nuevas URLs insertadas por los usuarios, lo que permite una mejora progresiva del sistema. Además, incluye logs de actividad para trazabilidad y depuración.
+Cuenta con una funcionalidad clave: reentrenamiento automático del modelo con nuevas URLs insertadas por los usuarios, lo que permite una mejora progresiva del sistema. Además, incluye testeos de tipo unitarios, de integración y A/B.
 
 </div>
 
@@ -49,6 +49,8 @@ Accede a la presentación del proyecto:
 ✅ **Análisis Profundo**: Extrae más de 40 características de cada URL para una clasificación precisa
 
 ✅ **Despliegue Containerizado**: Fácil despliegue mediante Docker y Docker Compose
+
+✅ **Implementar Redes Neuronales**: El código se encuentra en fase de desarrollo
 
 ---
 ## Arquitectura del Sistema
