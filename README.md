@@ -30,7 +30,7 @@ Accede a documentación del proyecto:
 🔗 https://deepwiki.com/mr-melenas/FalseBait/1-overview
 
 ---
-![Ver video demo](images/render_video.mov)
+![Ver video demo](images/render_gif.gif)
 
 ---
 ## Características Principales
