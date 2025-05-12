@@ -4,6 +4,15 @@ from pydantic import BaseModel
 import asyncio
 import scraping
 from core.config import settings
+import model_b as modelB
+import nest_asyncio
+
+# Carga asincrona para evitar el error de bucle de eventos
+nest_asyncio.apply()
+
+
+asyncio.create_task(modelB.load_data())  # en un entorno async
+
 
 class PredictRequest(BaseModel):
     url: str
