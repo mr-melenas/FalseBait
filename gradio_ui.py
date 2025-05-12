@@ -56,9 +56,6 @@ def gradio_interface():
                     FactoriaF5
                 </p>
             </div>
-
-
-            
             """
         )
 
