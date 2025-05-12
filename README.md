@@ -1,6 +1,6 @@
 # 🔍 FalseBait: Detección de Phishing con Machine Learning
 
-![Imagen del flujo de clasificación de la URL](<images/phishing.png>)
+![Imagen Intro](<images/phishing.png>)
 
 ## 📌 Índice
 
@@ -30,6 +30,9 @@ Accede a documentación del proyecto:
 🔗 https://deepwiki.com/mr-melenas/FalseBait/1-overview
 
 ---
+![Ver video demo](images/render_video.mov)
+
+---
 ## Características Principales
 
 ✅ **Interfaz Dual**: Acceso tanto a través de interfaz web (Gradio) como API (FastAPI)
@@ -53,7 +56,7 @@ POST /api/v1/predict → Web requests → Model prediction → extract_features_
 Usuario → Gradio UI (gradio_ui.py) → API Client → FastAPI Backend (main.py) → URL Predictor (scraping.py) → Web Scraper (scraping.py) → ML Models (model_clf_A.pkl, model_clf_B.pkl) → Supabase Database (supabase_db.py)
 ```
 
-![Imagen del flujo de clasificación de la URL](<images/diagram phishing.png>)
+![Imagen Diagrama ER](<images/diagram phishing.png>)
 
 ---
 ## Tecnologías Utilizadas
