@@ -48,9 +48,17 @@ def gradio_interface():
 
         gr.Markdown(
             """
-            <p style="text-align: center; color: #9CA3AF;">
-                Developed with ❤️ by group II for FactoriaF5.
-            </p>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px; text-align: center;">
+                <p style="color: #9CA3AF; margin: 0;">
+                    Developed with ❤️ by group II
+                </p>
+                <p style="color: #FFA500; margin: 0;">
+                    FactoriaF5
+                </p>
+            </div>
+
+
+            
             """
         )
 
