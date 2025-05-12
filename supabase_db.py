@@ -11,7 +11,7 @@ supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_
 def save_completa(data_dict):
     try:
         response = supabase.table("phishing_inputs_tld").insert(data_dict).execute()
-        print("Fila guardada correctamente en Supabase.")
+        print("Fila guardada correctamente en la base de datos (supabase).")
         return response
     except Exception as e:
         print("Error al guardar en Supabase:", e)
