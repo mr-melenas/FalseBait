@@ -82,6 +82,10 @@ Usuario → Gradio UI (gradio_ui.py) → API Client → FastAPI Backend (main.py
 ![pytest](https://img.shields.io/badge/-pytest-0A9EDC?logo=pytest&logoColor=white)
 ![BeautifulSoup](https://img.shields.io/badge/-BeautifulSoup-8B2A2A?logo=python&logoColor=white)
 ![Logging](https://img.shields.io/badge/-Logging-4B8BBE?logo=python&logoColor=white)
+![Keras](https://img.shields.io/badge/-Keras-D00000?logo=keras&logoColor=white)
+![PyTorch](https://img.shields.io/badge/-PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/-TensorFlow-FF6F00?logo=tensorflow&logoColor=white)
+![Unit Testing](https://img.shields.io/badge/-Unit_Testing-0A0A0A?logo=pytest&logoColor=white)
 
 ---
 ## Instalación y Uso
