@@ -116,9 +116,10 @@ Ejecutar los contenedores (ejemplo básico):
 Acceder a la app localmente:
 http://127.0.0.1:7860
 
-🆒 Para acceder al código de Redes Neuronales:
+🆒 Para acceder al código de Redes Neuronales TensorFlow Keras:
 
-[https://collab.com](https://colab.research.google.com/)
+🔗 https://colab.research.google.com/drive/1Jyn6W4FW8tLn6YF7f1onzf2GwSmvs6g9?usp=sharing
+
 ---
 ## API Endpoints
     https://falsebait-ake4.onrender.com/docs
