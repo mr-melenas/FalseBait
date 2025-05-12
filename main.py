@@ -4,9 +4,24 @@ from pydantic import BaseModel
 import asyncio
 import scraping
 from core.config import settings
+import model_b as modelB
+import nest_asyncio
+from contextlib import asynccontextmanager
+
+# Carga asincrona para evitar el error de bucle de eventos
+nest_asyncio.apply()
 
 class PredictRequest(BaseModel):
     url: str
+
+# Define el ciclo de vida de la app
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Código que se ejecuta al iniciar la app
+    asyncio.create_task(modelB.load_data())
+    yield
+    # Código que se ejecuta al cerrar la app (si es necesario)
+
 
 app = FastAPI(
     title=settings.proyect_name,
@@ -21,6 +36,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+
 
 @app.post(settings.api_prefix + settings.api_version + "/predict")
 async def predict(data: PredictRequest):
@@ -47,3 +65,5 @@ async def predict(data: PredictRequest):
             "classification": "Unknown",
             "error": str(e)
         }
+    
+

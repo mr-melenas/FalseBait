@@ -9,6 +9,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from core.config import settings
 from supabase_db import save_fill_complete
+from difflib import SequenceMatcher
 
 
 # Variables globales
@@ -181,6 +182,24 @@ def extract_features_from_url(url: str) -> dict:
             normales_count = sum(1 for c in u if c in normales)
             return round(normales_count / len(u), 3) if u else 0
         
+        """
+            Similitud (%)    Evaluación
+            80 100    Alta coincidencia, parece legítimo
+            50 80    Coincidencia media, revisar
+            10 50    Baja coincidencia, posiblemente legítimo con título genérico
+            < 10    Muy baja coincidencia, posible phishing
+        """
+        def url_similarity_score(url: str, title: str, tld) -> int:
+            domain = url.split("//")[-1].split("/")[0].replace("www.", "").replace("."+tld, "")
+            score = SequenceMatcher(None, domain.lower(), title.lower()).ratio()
+
+            if score >= 0.1:
+                score = 100
+            else:
+                score = max(1, round(score * 100))
+            print   (f"Score: {score}")
+            return score
+
         # mapping of TLD to numeric values
         tld_mapping = joblib.load(settings.model_map_tld)
         mapping_tld = tld_mapping.get(tld, 0)  # Default to 0 if TLD not found
@@ -196,7 +215,7 @@ def extract_features_from_url(url: str) -> dict:
             "DomainLength": domain_length,
             "IsDomainIP": domain_ip,
             "TLD": mapping_tld, #es un numero necesario mapeado
-            "URLSimilarityIndex": 100,  # Asumido 100% consigo mismo
+            "URLSimilarityIndex": url_similarity_score(domain.lower(), title.lower(), tld),
             "CharContinuationRate": char_continuation_rate(url), 
             "TLDLegitimateProb": tld_legitimate_prob(tld),  
             "URLCharProb": url_char_prob(url), 
@@ -251,6 +270,7 @@ def extract_features_from_url(url: str) -> dict:
         model = joblib.load(settings.model_path_A)
         rnd = random.random()
         version = "A" if rnd < 0.5 else "B"
+        print(f"Version: {version}")
         model = modelo_A if version == "A" else modelo_B
         prediction = model.predict(input_df)[0]
         # Guardar en la base de datos
@@ -260,7 +280,8 @@ def extract_features_from_url(url: str) -> dict:
                 url,
                 filename,
                 title,
-                domain
+                domain,
+                tld
             )
         return int(prediction)
 

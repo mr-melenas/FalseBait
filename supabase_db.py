@@ -10,14 +10,14 @@ supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_
 # Save data to Supabase
 def save_completa(data_dict):
     try:
-        response = supabase.table("phishing_inputs").insert(data_dict).execute()
-        print("Fila guardada correctamente en Supabase.")
+        response = supabase.table("phishing_inputs_tld").insert(data_dict).execute()
+        print("Fila guardada correctamente en la base de datos (supabase).")
         return response
     except Exception as e:
         print("Error al guardar en Supabase:", e)
         return None
 
-def save_fill_complete(features, prediction, url, filename, title, domain):
+def save_fill_complete(features, prediction, url, filename, title, domain, tld):
     try:
         data_dict = {
             "created_at": datetime.now().isoformat(),
@@ -25,8 +25,9 @@ def save_fill_complete(features, prediction, url, filename, title, domain):
             "URL": url,
             "Domain": domain,
             "label": prediction,
+            "TLD": tld,
             **{key: features[key] for key in [
-            "URLLength", "IsDomainIP", "TLD", "URLSimilarityIndex", "CharContinuationRate",
+            "URLLength", "IsDomainIP",  "URLSimilarityIndex", "CharContinuationRate",
             "TLDLegitimateProb", "URLCharProb", "TLDLength", "NoOfSubDomain", "HasObfuscation",
             "NoOfObfuscatedChar", "ObfuscationRatio", "NoOfLettersInURL", "LetterRatioInURL",
             "NoOfDegitsInURL", "DegitRatioInURL", "NoOfEqualsInURL", "NoOfQMarkInURL",
