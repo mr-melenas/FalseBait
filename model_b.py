@@ -22,13 +22,13 @@ load_dotenv()
 supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
 # Load data of SQL
-async def load_data(number_itera=2):
+async def load_data(number_itera=50):
     
     # Create CSV file
     if number_itera > 1:
         df = pd.read_csv(settings.test_data_logs)
         # Obtener la última fila de la columna 'nombre_columna'
-        last_file = df['id'].iloc[-1]-10
+        last_file = df['id'].iloc[-1]
         # Leer todos los registros de la tabla
         response = supabase.table("phishing_inputs_tld")\
                 .select("*", count="exact")\
@@ -45,7 +45,7 @@ async def load_data(number_itera=2):
                 
                 df = pd.DataFrame(data_filtrada)
                 # quitar duplicados
-                df.drop_duplicates(subset=['URL'], inplace=True)
+                #df.drop_duplicates(subset=['URL'], inplace=True)
                 df.to_csv(settings.test_data_logs, index=False)
                 save_concat()
             except Exception as e:

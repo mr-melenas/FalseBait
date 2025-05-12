@@ -181,7 +181,17 @@ def extract_features_from_url(url: str) -> dict:
             normales = string.ascii_letters + string.digits + "-_.~/:%"
             normales_count = sum(1 for c in u if c in normales)
             return round(normales_count / len(u), 3) if u else 0
-        
+        # URLSimilarityIndex
+        def url_similarity_score(url: str, title: str, tld) -> int:
+            domain = url.split("//")[-1].split("/")[0].replace("www.", "").replace("."+tld, "")
+            score = SequenceMatcher(None, domain.lower(), title.lower()).ratio()
+
+            if score >= 0.1:
+                score = 100
+            else:
+                score = max(1, round(score * 100))
+            print   (f"Score: {score}")    
+            return score
         # mapping of TLD to numeric values
         tld_mapping = joblib.load(settings.model_map_tld)
         mapping_tld = tld_mapping.get(tld, 0)  # Default to 0 if TLD not found
@@ -197,7 +207,7 @@ def extract_features_from_url(url: str) -> dict:
             "DomainLength": domain_length,
             "IsDomainIP": domain_ip,
             "TLD": mapping_tld, #es un numero necesario mapeado
-            "URLSimilarityIndex": round(SequenceMatcher(None, domain.lower(), title.lower()).ratio() * 100, 2),  
+            "URLSimilarityIndex": url_similarity_score(domain.lower(), title.lower(), tld),  
             "CharContinuationRate": char_continuation_rate(url), 
             "TLDLegitimateProb": tld_legitimate_prob(tld),  
             "URLCharProb": url_char_prob(url), 
