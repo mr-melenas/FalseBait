@@ -83,28 +83,22 @@ Usuario → Gradio UI (gradio_ui.py) → API Client → FastAPI Backend (main.py
 ---
 ## Instalación y Uso
 
-### 1️⃣ Clonar el Repositorio
+### 1️⃣ Opción 1: Clonar el Repositorio
 ```bash
 git clone https://github.com/mr-melenas/FalseBait
 cd FalseBait
+docker compose up --build
 ```
-
-### 2️⃣ Configuración con Docker Compose
-```bash
-    docker compose up --build
-```
-
 Esto iniciará tres servicios:
 - Servicio Gradio UI: Expone la interfaz web en el puerto 7860
 - Servicio FastAPI: Proporciona la API backend en el puerto 8000
 - Servicio Test Runner: Ejecuta pruebas para verificar la funcionalidad del sistema
 
-### 3️⃣ Acceder a la Aplicación
-🌐 Opción 1: Usar la versión online
+### 2️⃣ Opción 2: Usar la versión online
     Accede directamente a la aplicación en la nube:
     https://falsebaitgradio.onrender.com/
 
-🧪 Opción 2: Ejecutar en local con Docker
+### 3️⃣ Opción 3: Ejecutar en local con Docker
 Asegúrate de tener Docker instalado.
 1️⃣ Descargar las imágenes necesarias:
 ```
@@ -112,17 +106,15 @@ Asegúrate de tener Docker instalado.
     docker pull yaelpc/falsebait-gradio:v7  
     docker pull yaelpc/falsebait-tests:v7
 ```
-
-2️⃣ Ejecutar los contenedores (ejemplo básico):
+Ejecutar los contenedores (ejemplo básico):
 ```
     docker run -d -p 8000:8000 yaelpc/falsebait-fastapi:v7  
     docker run -d -p 7860:7860 yaelpc/falsebait-gradio:v7 
 ```
-
-3️⃣ Acceder a la app localmente:
+Acceder a la app localmente:
 http://127.0.0.1:7860
-- **API**: Disponible en `http://localhost:8000/api/v1/predict`
 
+---
 ## API Endpoints
     https://falsebait-ake4.onrender.com/docs
 
