@@ -26,6 +26,9 @@ Cuenta con una funcionalidad clave: reentrenamiento automático del modelo con n
 Accede a la app online:
 🔗 https://falsebaitgradio.onrender.com/
 
+Accede a la api de FastApi:
+🔗 https://falsebait-ake4.onrender.com/docs
+
 Accede a documentación del proyecto: 
 🔗 https://deepwiki.com/mr-melenas/FalseBait/1-overview
 
